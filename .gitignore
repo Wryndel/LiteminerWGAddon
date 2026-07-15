@@ -1,0 +1,76 @@
+# Build artifacts
+.gradle/
+build/
+out/
+dist/
+target/
+*.jar
+*.class
+*.war
+*.ear
+
+# IDE configuration
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+.classpath
+.project
+.settings/
+*.swp
+*.swo
+*~
+
+# Runtime & Logs
+run/
+logs/
+crash-reports/
+*.log
+latest.log
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# NeoForge specific
+runs/
+userdev/
+remapped/
+
+# Environment & Local
+.env
+local.properties
+gradle.properties.local
+
+# OS files
+.DS_Store
+Thumbs.db
+.directory
+
+# Archives
+*.zip
+*.tar.gz
+*.7z
+*.rar
+
+# Generated & Temporary
+*.orig
+*.rej
+~*
+.~*
+\#*\#
+.\#*
+
+# Maven
+pom.xml.tag
+pom.xml.asc
+pom.xml.releaseBackup
+release.properties
+
+# Cache
+.cache/
+*.cache

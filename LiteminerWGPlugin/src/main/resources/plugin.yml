@@ -1,0 +1,14 @@
+name: LiteminerWGPlugin
+version: 1.0.0
+main: org.example.wryndel.liteminerwgplugin.LiteminerWGPlugin
+description: WorldGuard integration plugin for LiteMiner mod - handles liteminer-break flag and region checks
+authors:
+  - Wryndel
+
+# WorldGuard is REQUIRED - must be loaded before this plugin so classes are available
+# depend: hard dependency (plugin will not load without it)
+# loadbefore: ensures this plugin loads after WorldGuard
+depend:
+  - WorldGuard
+
+api-version: '1.21'

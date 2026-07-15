@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+}
+
+version = '1.0.0'
+group = 'org.example.wryndel'
+
+// Use local and central repositories; dependencies are provided by the server
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public' }
+}
+
+// Compile-only: these must be placed in 'LiteminerWGPlugin/libs/' by the user.
+dependencies {
+    // Prefer Paper API from the PaperMC repo to provide transitive Adventure/SLF4J
+    compileOnly 'io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT'
+    // Local fallback JARs provided by the user
+    compileOnly files('libs/paper-api-1.21.1-R0.1.jar')
+    compileOnly files('libs/worldedit-youer-7.3.8-1.jar')
+    compileOnly files('libs/worldguard-bukkit-7.0.12-dist.jar')
+    compileOnly files('libs/worldguard-core-7.0.12.jar')
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+// Ensure classes and resources (including plugin.yml) are packaged into the JAR
+jar {
+    archiveBaseName.set('LiteminerWGPlugin')
+    archiveVersion.set('1.0.0')
+    from(sourceSets.main.output)
+    // Do not include project libs inside the plugin JAR
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// Small helper task to list jar contents
+tasks.register('listJar') {
+    dependsOn tasks.named('jar')
+    doLast {
+        def f = tasks.jar.get().archiveFile.get().asFile
+        println "JAR: ${f.absolutePath}"
+        if (f.exists()) {
+            java.util.jar.JarFile jar = new java.util.jar.JarFile(f)
+            jar.stream().filter { e -> e.name.endsWith('.class') || e.name == 'plugin.yml' }
+                .forEach { println it.name }
+            jar.close()
+        }
+    }
+}

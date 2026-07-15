@@ -1,0 +1,3 @@
+# Enable debug logging for LiteminerWGPlugin
+# Set to true to see detailed WorldGuard flag registration and VeinMine block checking
+debug: false

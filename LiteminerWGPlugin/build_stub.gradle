@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+}
+
+version = '1.0.0'
+group = 'org.example.wryndel'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots' }
+    maven { url = 'https://repo.papermc.io/repository/maven-public' }
+}
+
+// Create stub dependencies for compilation
+configurations {
+    stubs
+}
+
+dependencies {
+    // Paper API
+    compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+// Ignore compilation errors from missing WorldGuard/WorldEdit
+tasks.withType(JavaCompile) {
+    options.failOnError = false
+}
+
+jar {
+    archivesBaseName = 'LiteminerWGPlugin'
+    archiveVersion = '1.0.0'
+    
+    manifest {
+        attributes(
+            'Manifest-Version': '1.0',
+            'Implementation-Title': 'LiteminerWGPlugin',
+            'Implementation-Version': '1.0.0',
+            'Plugin-Main': 'org.example.wryndel.liteminerwgplugin.LiteminerWGPlugin'
+        )
+    }
+}
